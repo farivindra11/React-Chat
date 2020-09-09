@@ -5,7 +5,8 @@ export default function ChatItem(props) {
         <li>
             <h2>{props.name}</h2>
             <p>{props.message}</p>
-            <button onClick={props.delete}>Delete</button>
+            {!props.sent && <p style ={{color: 'red', 'font-size': '8pt'}}>network failed</p>}
+            <button onClick={props.sent ? props.delete : props.resend}>{props.sent ? 'hapus' : 'kirim ulang'}</button>
         </li>
     )
 }
