@@ -17,6 +17,10 @@ export default class ChatBox extends React.Component {
         this.removeChat = this.removeChat.bind(this)
     }
 
+    componentDidMount(){
+        request.get()
+    }
+
     addChat(name, message) {
         const id = Date.now()
         this.setState((state, props) => ({
