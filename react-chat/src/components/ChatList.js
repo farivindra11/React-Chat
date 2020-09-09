@@ -7,6 +7,7 @@ export default function ChatList(props) {
     key={item.id}
     name={item.name}
     message={item.message}
+    sent={item.sent}
     delete={() => props.remove(item.id)} />)
 
     return (
