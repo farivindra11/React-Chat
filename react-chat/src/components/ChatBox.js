@@ -1,6 +1,13 @@
 import React from 'react'
 import ChatForm from './ChatForm'
 import ChatList from './ChatList'
+import axios from 'axios';
+
+const instance = axios.create({
+    baseURL: 'https://localhost:3001/api/',
+    timeout: 1000,
+    headers: {'token': 'foobar'}
+  });
 
 export default class ChatBox extends React.Component {
     constructor(props) {
@@ -10,11 +17,20 @@ export default class ChatBox extends React.Component {
         this.removeChat = this.removeChat.bind(this)
     }
 
-    addChat(title) {
+    addChat(name, message) {
         const id = Date.now()
         this.setState((state, props) => ({
-            data: [{id, title }, ...state.data]
+            data: [{id, name, message }, ...state.data]
         }));
+        request.post('chat', {
+            id,
+            name,
+            message})
+        .then(data=> {
+            console.log(data);
+        }).catch(err=> {
+            console.log(err);
+        })
     }
 
     removeChat(id){
@@ -26,8 +42,8 @@ export default class ChatBox extends React.Component {
     render() {
         return (
             <div>
-                <ChatForm add={this.addChat} />
                 <ChatList data={this.state.data}  remove={this.removeChat} />
+                <ChatForm add={this.addChat} />
             </div>
         )
     }
