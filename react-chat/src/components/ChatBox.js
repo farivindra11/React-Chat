@@ -15,11 +15,12 @@ export default class ChatBox extends React.Component {
         this.state = { data: [] }
         this.addChat = this.addChat.bind(this)
         this.removeChat = this.removeChat.bind(this)
+        this.resendChat = this.resendChat.bind(this)
     }
 
     componentDidMount() {
         request.get('chats').then(data => {
-            const completedData = data.data.map(item=> {
+            const completedData = data.data.map(item => {
                 item.sent = true;
                 return item
             })
@@ -32,26 +33,26 @@ export default class ChatBox extends React.Component {
     addChat(name, message) {
         const id = Date.now()
         this.setState((state, props) => ({
-            data: [...state.data, { id, name, message,sent: true }]
+            data: [...state.data, { id, name, message, sent: true }]
         }));
         request.post('chats', {
             id,
             name,
             message
         })
-        .then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
-            this.setState((state, props) => ({
-                data: state.data.map(item => {
-                    if(item.id === id) {
-                        item.sent = false;
-                    }
-                    return item;
-                })
-            }));
-        })
+            .then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err);
+                this.setState((state, props) => ({
+                    data: state.data.map(item => {
+                        if (item.id === id) {
+                            item.sent = false;
+                        }
+                        return item;
+                    })
+                }));
+            })
     }
 
     removeChat(id) {
@@ -60,10 +61,29 @@ export default class ChatBox extends React.Component {
         }));
     }
 
+    resendChat(id, name, message) {
+        request.post('chats', {
+            id,
+            name,
+            message
+        }).then(data => {
+            this.setState((state, props) => ({
+                data: state.data.map(item => {
+                    if (item.id === id) {
+                        item.sent = true;
+                    }
+                    return item;
+                })
+            }));
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
     render() {
         return (
             <div>
-                <ChatList data={this.state.data} remove={this.removeChat} />
+                <ChatList data={this.state.data} remove={this.removeChat} resend={this.resendChat} />
                 <ChatForm add={this.addChat} />
             </div>
         )
