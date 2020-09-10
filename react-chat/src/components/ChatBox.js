@@ -59,6 +59,11 @@ export default class ChatBox extends React.Component {
         this.setState((state, props) => ({
             data: state.data.filter(item => item.id !== id)
         }));
+        request.delete(`chats/${id}`).then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     resendChat(id, name, message) {
