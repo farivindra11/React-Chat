@@ -2,7 +2,10 @@ import React from 'react'
 import ChatForm from './ChatForm'
 import ChatList from './ChatList'
 import axios from 'axios';
+import io from 'socket.io-client';
+import moment from 'moment'
 
+const socket = io('http://localhost:3001');
 const request = axios.create({
     baseURL: 'http://localhost:3001/api/',
     timeout: 1000,
@@ -28,13 +31,39 @@ export default class ChatBox extends React.Component {
         }).catch(err => {
             console.log(err);
         })
+
+        socket.on('chat', (data) => {
+            const time = moment().format('h:mm a')
+
+            this.setState((state, props) => ({
+                data: [...state.data, {...data, time, sent: true}]
+            }))
+        })
+
+        socket.on('delete-frontEnd', (id) => {
+            console.log(id)
+            this.setState((state, props) => ({
+                data: state.data.filter(item => {
+                    return item.id !== id.id
+                })
+            }))
+        })
     }
 
     addChat(name, message) {
         const id = Date.now()
+        const time = moment().format('h:mm a')
+
         this.setState((state, props) => ({
-            data: [...state.data, { id, name, message, sent: true }]
+            data: [...state.data, { id, name, message, time, sent: true }]
         }));
+
+        socket.emit('chat', {
+            id,
+            name,
+            message
+        })
+
         request.post('chats', {
             id,
             name,
