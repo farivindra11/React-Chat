@@ -8,6 +8,7 @@ export default function ChatList(props) {
     name={item.name}
     message={item.message}
     sent={item.sent}
+    resend={() => props.resend(item.id, item.name, item.message)}
     delete={() => props.remove(item.id)} />)
 
     return (
