@@ -5,12 +5,22 @@ const moment = require('moment')
 
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  Chat.find({}).then((data) => {
+router.get('/', async (req, res, next) => {
+  try {
+  const result = await Chat.find({}).sort({ createdAt: 1})
+  
+    let data = result.map(field => ({
+      _id: field._id,
+      id: field.id,
+      name: field.name,
+      message: field.message,
+      date: moment(field.createdAt).format("YYYY-MM-DD"),
+      time: moment(field.createdAt).format('h:mm a')
+    }))
     res.json(data)
-  }).catch((err) => {
+} catch(err) {
     res.status(500).json(err)
-  })
+  }
 });
 
 router.post('/', function (req, res, next) {
