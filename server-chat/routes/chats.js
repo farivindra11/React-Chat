@@ -1,7 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const Chat = require('../models/Chat')
-// console.log(Chat);
+const moment = require('moment')
+
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   Chat.find({}).then((data) => {
