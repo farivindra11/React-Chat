@@ -4,6 +4,7 @@ import ChatList from './ChatList'
 import axios from 'axios';
 import io from 'socket.io-client';
 import moment from 'moment'
+import Swal from 'sweetalert2'
 
 const socket = io('http://localhost:3001');
 const request = axios.create({
@@ -32,7 +33,7 @@ export default class ChatBox extends React.Component {
             console.log(err);
         })
 
-        socket.on('chat', (data) => {
+        socket.on('newChat', (data) => {
             const time = moment().format('h:mm a')
 
             this.setState((state, props) => ({
@@ -58,7 +59,7 @@ export default class ChatBox extends React.Component {
             data: [...state.data, { id, name, message, time, sent: true }]
         }));
 
-        socket.emit('chat', {
+        socket.emit('newChat', {
             id,
             name,
             message
@@ -85,13 +86,34 @@ export default class ChatBox extends React.Component {
     }
 
     removeChat(id) {
-        this.setState((state, props) => ({
-            data: state.data.filter(item => item.id !== id)
-        }));
-        request.delete(`chats/${id}`).then(data => {
-            console.log(data);
-        }).catch(err => {
-            console.log(err);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This message will be deleted !',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#08db93',
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'No',
+        }).then(result => {
+            if (result.value) {
+                this.setState((state, props) => ({
+                    data: state.data.filter(item => item.id !== id)
+                }));
+
+                socket.emit('delete-backEnd', {
+                    id
+                })
+                request.delete(`chats/${id}`).then(data => {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'chat has beeb deleted..',
+                        showConfirmationButton: false,
+                    })
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
         })
     }
 
