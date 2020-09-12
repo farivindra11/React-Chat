@@ -22,19 +22,24 @@ export default class ChatForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-            <input type="text" value={this.state.name} onChange={this.handleChangeName} />
-        </label>
+      <div className='card-footer'>
+        <form onSubmit={this.handleSubmit}>
+          <div className='input-group'>
 
-        <label>
-          Message:
-            <input type="text" value={this.state.message} onChange={this.handleChangeMessage} />
-        </label>
-
-        <input type="submit" value="Submit" />
-      </form>
+            <div className='container'>
+              <div className='form-group row'>
+                <div className="col form">
+                  <input type="text" className="form-control type_msg" value={this.state.name} onChange={this.handleChangeName} placeholder='Insert Your Name Here' required />
+                  <input type="text" className="form-control type_msg" value={this.state.message} onChange={this.handleChangeMessage} placeholder='Say Something' />
+                </div>
+                <div className="input-group-append right-form">
+                  <button type="submit" value="Send" className='input-group-text send_btn'><i className="fas fa-location-arrow"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
     );
   }
 }
