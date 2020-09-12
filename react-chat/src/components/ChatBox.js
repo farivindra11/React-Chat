@@ -107,7 +107,7 @@ export default class ChatBox extends React.Component {
                 request.delete(`chats/${id}`).then(data => {
                     Swal.fire({
                         type: 'success',
-                        title: 'chat has beeb deleted..',
+                        title: 'chat has been deleted..',
                         showConfirmationButton: false,
                     })
                 }).catch(err => {
@@ -138,9 +138,18 @@ export default class ChatBox extends React.Component {
 
     render() {
         return (
-            <div>
-                <ChatList data={this.state.data} remove={this.removeChat} resend={this.resendChat} />
-                <ChatForm add={this.addChat} />
+            <div className='container d-flex mx-auto mt-5 col-md-8 col-xl-6 chat' >
+                <div className='card'>
+                        <div className='card-header text-center'>
+                            <div>
+                                <h3>React Chat</h3>
+                            </div>
+                        </div>
+                    <div className='card-body msg_card_body'>   
+                        <ChatList data={this.state.data} remove={this.removeChat} resend={this.resendChat} />
+                    </div>
+                        <ChatForm add={this.addChat} />
+                </div>
             </div>
         )
     }
