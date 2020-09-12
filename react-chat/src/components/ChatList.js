@@ -9,7 +9,10 @@ export default function ChatList(props) {
     message={item.message}
     sent={item.sent}
     resend={() => props.resend(item.id, item.name, item.message)}
-    delete={() => props.remove(item.id)} />)
+    delete={() => props.remove(item.id)}
+    time={item.time}
+    
+    />)
 
     return (
         <ul>{list}</ul>
