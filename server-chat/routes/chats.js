@@ -7,8 +7,8 @@ const moment = require('moment')
 /* GET users listing. */
 router.get('/', async (req, res, next) => {
   try {
-  const result = await Chat.find({}).sort({ createdAt: 1})
-  
+    const result = await Chat.find({}).sort({ createdAt: 1 })
+
     let data = result.map(field => ({
       _id: field._id,
       id: field.id,
@@ -18,23 +18,26 @@ router.get('/', async (req, res, next) => {
       time: moment(field.createdAt).format('h:mm a')
     }))
     res.json(data)
-} catch(err) {
+  } catch (err) {
     res.status(500).json(err)
   }
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', async (req, res, next) => {
   const { id, name, message } = req.body;
-  Chat.create({ id, name, message }).then((data) => {
+
+  try {
+    const data = await Chat.create({ id, name, message })
     res.status(201).json(data)
-  }).catch((err) => {
+
+  } catch (err) {
     res.status(500).json(err)
-  })
+  }
 });
 
 router.delete('/:id', function (req, res, next) {
   const { id } = req.params;
-  Chat.findOneAndRemove({id: Number(id)}).then((data) => {
+  Chat.findOneAndRemove({ id: Number(id) }).then((data) => {
     res.status(201).json(data)
   }).catch((err) => {
     res.status(500).json(err)
