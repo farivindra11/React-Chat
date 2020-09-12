@@ -30,7 +30,7 @@ export default class ChatForm extends React.Component {
               <div className='form-group row'>
                 <div className="col form">
                   <input type="text" className="form-control type_msg" value={this.state.name} onChange={this.handleChangeName} placeholder='Insert Your Name Here' required />
-                  <input type="text" className="form-control type_msg" value={this.state.message} onChange={this.handleChangeMessage} placeholder='Say Something' />
+                  <input type="text" className="form-control type_name" value={this.state.message} onChange={this.handleChangeMessage} placeholder='Say Something' />
                 </div>
                 <div className="input-group-append right-form">
                   <button type="submit" value="Send" className='input-group-text send_btn'><i className="fas fa-location-arrow"></i></button>
