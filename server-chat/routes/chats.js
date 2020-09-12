@@ -35,13 +35,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', async (req, res, next) => {
   const { id } = req.params;
-  Chat.findOneAndRemove({ id: Number(id) }).then((data) => {
+  try {
+    const data = await Chat.findOneAndRemove({ id: Number(id) })
     res.status(201).json(data)
-  }).catch((err) => {
+  } catch (err) {
     res.status(500).json(err)
-  })
+  }
 });
 
 module.exports = router;
