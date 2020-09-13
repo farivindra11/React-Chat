@@ -36,6 +36,8 @@ body,html{
  background-color: rgba(0,0,0,0.4) !important;
 }
 .card-header{
+  font-family: Arvo, serif;
+  color: #b3f1ff;
   border-radius: 15px 15px 0 0 !important;
   border-bottom: 0 !important;
 }
@@ -140,4 +142,39 @@ position: relative;
 }
 .d-flex {
   margin-right:20px;
+}
+.btn_resend{
+  margin-top: 3px;
+    margin-bottom: auto;
+    margin-left: 78px;
+    position: relative;
+    
+}
+.circle{
+  border-radius: 20px;
+  padding: .1rem .3rem;
+  color:rgb(255, 247, 247);
+} 
+@keyframes spinner {
+to {
+    transform: rotate(360deg);
+}
+}
+.spinner {
+  color: red;
+}
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border-top: 2px solid #07d;
+  border-right: 2px solid transparent;
+  animation: spinner .6s linear infinite;
 }
