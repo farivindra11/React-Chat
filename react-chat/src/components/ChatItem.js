@@ -19,10 +19,15 @@ export default function ChatItem(props) {
                 <span className="msg_time">{props.time}</span>
                 {props.sent && <button className='btn btn danger' onClick={props.delete}><i className='cg-cl-del fas fa-trash-alt fa-xs'></i></button>}
                 </div>
+                {!props.sent &&
+                    <div className="btn_resend">
+                        <button className="btn btn-outline-success btn-sm circle"
+                            onClick={() => props.resend(props.message)}>
+                            <i className="fas fa-redo-alt"></i>
+                        </button>
+                        <p className='spinner'>network failed</p>
+                    </div>}
             </div>
-            {/* {!props.sent && <p style={{ color: 'red', 'font-size': '8pt' }}>network failed</p>}
-            <button className="btn btn-outline-danger" onClick={props.sent ? props.delete : props.resend}>{props.sent ? 'hapus' : 'kirim ulang'}</button> */}
-
         </div>
     )
 }
