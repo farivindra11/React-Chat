@@ -33,6 +33,7 @@ body,html{
 .msg_card_body{
   overflow-y: auto;
   overflow-x: hidden;
+ background-color: rgba(0,0,0,0.4) !important;
 }
 .card-header{
   border-radius: 15px 15px 0 0 !important;
@@ -92,8 +93,12 @@ margin-bottom: auto;
 margin-left: 10px;
 border-radius: 15px;
 background-color: #b3f1ff;
-padding: 10px;
+padding: 9px;
 position: relative;
+}
+.msg_cotainer p {
+  color: #1c2230;
+  margin-bottom: 4px;
 }
 .msg_time {
   color: black;
@@ -110,4 +115,29 @@ position: relative;
 
 .cg-cl-del {
   color: red;
+}
+.user_img_msg{
+  height: 50px;
+  width: 50px;
+  border:1.5px solid #eff0f1;
+  background-color: rgb(104, 101, 155);
+}
+.rounded-circle {
+  color: #222227;
+  font-family: 'Arvo', serif;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+.name {
+  color: #e7c75b;
+  font-family: arvo;
+}
+.img_cont_msg{
+  height: 40px;
+  width: 40px;
+  margin-top: px;
+  margin-right: 20px;
+}
+.d-flex {
+  margin-right:20px;
 }
