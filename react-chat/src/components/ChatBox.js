@@ -142,7 +142,7 @@ export default class ChatBox extends React.Component {
                 <div className='card'>
                         <div className='card-header text-center'>
                             <div>
-                                <h3>React Chat</h3>
+                                <h2>React Chat</h2>
                             </div>
                         </div>
                     <div className='card-body msg_card_body'>   
