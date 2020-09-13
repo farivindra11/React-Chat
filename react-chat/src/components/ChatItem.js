@@ -3,11 +3,11 @@ import ReactMarkdown from 'react-markdown';
 
 export default function ChatItem(props) {
     return (
-        <div className={`d-flex mb-4 ${props.index % 2 === 0 ? "justify-content-end" : "justify-content-start"}`}>
+        <div className='d-flex mb-4'>
             <div className="img_cont_msg">
                 <p className="rounded-circle user_img_msg"> {props.name.slice(0, 2).toUpperCase()}</p>
             </div>
-            <div>
+            <div className='boks'>
                 <h6 className='name'>{props.name}</h6>
                 <div className=' msg_cotainer'>
                     <p> <ReactMarkdown
